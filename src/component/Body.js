@@ -1,9 +1,29 @@
-import React, { Component } from 'react'
+import React, { Component, useEffect, useState } from 'react'
 import '../App.css';
 import { Button, Icon, Image } from '../../node_modules/antd';
 import img from './image/Capture.PNG';
 
+
+
 export const Body = () => {
+    const [color, setColor] = useState(0);
+    const [count, setCount] = useState(0);
+
+    const ChangeColor = () => {
+        if (color === 0)
+            return (
+                <Button size="large" shape="circle" onClick={() => { alert('Thank you so much'); setColor(1) }}   ><Icon type="heart" /></Button>
+            )
+        else
+            return (
+                <Button size="large" shape="circle" type="danger" onClick={() => { alert('Thank you so much'); setColor(0) }}  ><Icon type="heart" /></Button>
+            )
+    }
+
+    useEffect(() => {
+        if (color % 2 !== 0)
+            setCount(count + 1)
+    }, [color]);
 
     return (
         <body className="body font">
@@ -17,8 +37,8 @@ export const Body = () => {
                     <div>- Most elements can have attributes, which provides additional information about the element</div>
                 </div>
             </div>
-            <Button shape="circle" onClick={() => alert('Thank you so much')}  ><Icon type="heart" /></Button>
-
+            {ChangeColor()}
+            <div>You clicked {count} times</div>
         </body >
     )
 }
